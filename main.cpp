@@ -3,7 +3,7 @@
 using namespace std;
 
 class Farm {
-public:
+    public:
     int a;
     int b;
     int length;
@@ -16,6 +16,22 @@ public:
     }
 };
 
+template <typename T>
+T &validateInput(T &val)
+{
+    while (true) {
+        cout << "Please input the available fence length (meters): ";
+        if (cin >> val) {
+            break;
+        } else {
+            cout << "Enter a valid integer value!\n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
+    return val;
+}
+
 int main() {
 
     cout << "Write RUN to start the area calculation algorithm." << endl;
@@ -24,11 +40,10 @@ int main() {
 
     if (start == "RUN") {
         Farm f1;
-        cout << "Please input the available fence length (meters)." << endl;
-        cin>>f1.length;
+        f1.length = validateInput(f1.length);
         f1.calculate(f1.length);
         cout << "The maximum possible farm area is: " << f1.area << " square meters." << endl;
-        cout << "The segment lengths used are 2x " << f1.a << "m and " << f1.b << "m." << endl;
+        cout << "Lengths of used segments are: 2x " << f1.a << "m and " << f1.b << "m." << endl;
     } else {
         cout << "The program will now terminate." << endl;
     }
